@@ -26,7 +26,7 @@ class character:
         else: # Just a straight-across perception roll 
             self.percRoll = iRoll('1d20') + self.modifier
         
-    def perceptionDifficultyClassCheck(self):
+    def perceptionDifficultyClassCheck(self, perceptionDC):
         if self.percRoll >= perceptionDC:
             playerPerceptionTrigger += 1
             print(charName + "perceived something!")
@@ -51,7 +51,7 @@ def partyPerceptionCheck(): # Each iteration is referred to as a 'cycle'
     advantagePrompt() # Finds which characters have dis/advantage
     for character in playerParty: # Goes through each character 
         character.characterPerceptionRoll() # Determines the character's perception roll
-        character.perceptionDifficultyClassCheck() # Compares the character's roll to the DC, and prints that they saw something or not
+        character.perceptionDifficultyClassCheck(perceptionDC) # Compares the character's roll to the DC, and prints that they saw something or not
     if playerPerceptionTrigger == 0: # No one exceeded the DC
         print("No one perceived anything...")
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") # A separator, to make it easier to read between cycles

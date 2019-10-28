@@ -28,8 +28,9 @@ class character:
         
     def perceptionDCcheck(self, perceptionDC):
         if self.percRoll >= perceptionDC:
-            playerPerceptionTrigger += 1
             print(charName + "perceived something!")
+            return 1
+        return 0
 
 ashe = character("Ashe", "a", 0)
 charles = character("Charles", "c", 3)
@@ -51,7 +52,7 @@ def partyPerceptionCheck(): # Each iteration is referred to as a 'cycle'
     advantagePrompt() # Finds which characters have dis/advantage
     for character in playerParty: # Goes through each character 
         character.characterPerceptionRoll() # Determines the character's perception roll
-        character.perceptionDCcheck(perceptionDC) # Compares the character's roll to the DC, and prints that they saw something or not
+        playerPerceptionTrigger += character.perceptionDCcheck(perceptionDC) # Compares the character's roll to the DC, and prints that they saw something or not
     if playerPerceptionTrigger == 0: # No one exceeded the DC
         print("No one perceived anything...")
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") # A separator, to make it easier to read between cycles

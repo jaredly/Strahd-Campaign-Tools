@@ -7,10 +7,6 @@ def advRoll():
 def disadvRoll():
     return min(dice.roll('2d20'))
 
-perceptionDC = 0
-
-playerPerceptionTrigger = 0
-
 class character:
     def __init__(self, charName = "", initial = "", modifier = 0, adv = False, disadv = False):
         self.charName = charName # The character's full first name
@@ -33,7 +29,7 @@ class character:
         
     def perceptionDifficultyClassCheck(self):
         if self.percRoll >= perceptionDC:
-            perceptionDC += 1
+            playerPerceptionTrigger += 1
             print(charName + "perceived something!")
 
 ashe = character("Ashe", "a", 0)
@@ -42,10 +38,6 @@ selamin = character("Selamin", "s", 3)
 vye = character("Vye", "v", 2)
 
 playerParty = [ashe, charles, selamin, vye]
-
-def perceptionDCprompt():
-    perceptionDc = int(input("The DC of the Perception Check: "))
-    return perceptionDC
 
 def advantagePrompt():
     charactersWithAdvantage = [input("Which characters (if any) have advantage: ")]
@@ -56,7 +48,7 @@ def advantagePrompt():
 
 def partyPerceptionCheck():
     playerPerceptionTrigger = 0
-    perceptionDCprompt()
+    perceptionDC = int(input("The DC of the Perception Check: "))
     advantagePrompt()
     for character in playerParty:
         character.characterPerceptionRoll()

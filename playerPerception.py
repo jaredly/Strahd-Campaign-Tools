@@ -19,7 +19,7 @@ class character:
         self.adv = adv # Whether or not the character has advantage
         self.disadv = disadv # Whether or not the character has disadvantage
     
-    def characterPerceptionRoll(): 
+    def characterPerceptionRoll(self): 
         if self.adv == True and self.disadv == True: # Accidentally gave a character advantage AND disadvantage, so the two cancel out
             self.adv == False # Disadvantage cancels out advantage
             self.disadv == False # Advantage cancels out the disadvantage
@@ -31,7 +31,7 @@ class character:
             self.percRoll = iRoll('1d20') + self.modifier
         return self.percRoll # Returns the rolled perception to the rest of the program
         
-    def perceptionDifficultyClassCheck():
+    def perceptionDifficultyClassCheck(self):
         if self.percRoll >= perceptionDC:
             perceptionDC += 1
             print(charName + "perceived something!")
@@ -49,17 +49,16 @@ def perceptionDCprompt():
 
 def advantagePrompt():
     charactersWithAdvantage = [input("Which characters (if any) have advantage: ")]
-    if playerParty(character.initial) in charactersWithAdvantage:
-        character.adv = True
     charactersWithDisadvantage = [input("Which characters (if any) have disadvantage: ")]
-    if playerParty(character.initial) in charactersWithDisadvantage:
-        character.disadv = True
+    for character in playerParty:
+        character.adv = character.initial in charactersWithAdvantage
+        character.disadv = character.initial in charactersWithDisadvantage
 
 def partyPerceptionCheck():
     playerPerceptionTrigger = 0
     perceptionDCprompt()
     advantagePrompt()
-    for characters in playerParty:
+    for character in playerParty:
         character.characterPerceptionRoll()
         character.perceptionDifficultyClassCheck()
     if playerPerceptionTrigger == 0:

@@ -25,7 +25,6 @@ class character:
             self.percRoll = int(disadvRoll) + self.modifier
         else: # Just a straight-across perception roll 
             self.percRoll = iRoll('1d20') + self.modifier
-        return self.percRoll # Returns the rolled perception to the rest of the program
         
     def perceptionDifficultyClassCheck(self):
         if self.percRoll >= perceptionDC:
@@ -37,25 +36,25 @@ charles = character("Charles", "c", 3)
 selamin = character("Selamin", "s", 3)
 vye = character("Vye", "v", 2)
 
-playerParty = [ashe, charles, selamin, vye]
+playerParty = [ashe, charles, selamin, vye] # the party, which contains all of the characters
 
-def advantagePrompt():
-    charactersWithAdvantage = [input("Which characters (if any) have advantage: ")]
-    charactersWithDisadvantage = [input("Which characters (if any) have disadvantage: ")]
+def advantagePrompt(): 
+    charactersWithAdvantage = [input("Which characters (if any) have advantage: ")] # Prompts the user for which characters have advantage
+    charactersWithDisadvantage = [input("Which characters (if any) have disadvantage: ")] # Prompts the user for which characters have advantage
     for character in playerParty:
-        character.adv = character.initial in charactersWithAdvantage
-        character.disadv = character.initial in charactersWithDisadvantage
+        character.adv = character.initial in charactersWithAdvantage # Sets advantage for each character based on input
+        character.disadv = character.initial in charactersWithDisadvantage # Sets disadvantage for each character based on input
 
-def partyPerceptionCheck():
-    playerPerceptionTrigger = 0
-    perceptionDC = int(input("The DC of the Perception Check: "))
-    advantagePrompt()
-    for character in playerParty:
-        character.characterPerceptionRoll()
-        character.perceptionDifficultyClassCheck()
-    if playerPerceptionTrigger == 0:
+def partyPerceptionCheck(): # Each iteration is referred to as a 'cycle'
+    playerPerceptionTrigger = 0 # Resets the trigger cout for this "cycle"
+    perceptionDC = int(input("The DC of the Perception Check: ")) # Prompts for the DC for this "cycle"; the DC is supposed to persist for the entire cycle
+    advantagePrompt() # Finds which characters have dis/advantage
+    for character in playerParty: # Goes through each character 
+        character.characterPerceptionRoll() # Determines the character's perception roll
+        character.perceptionDifficultyClassCheck() # Compares the character's roll to the DC, and prints that they saw something or not
+    if playerPerceptionTrigger == 0: # No one exceeded the DC
         print("No one perceived anything...")
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") # A separator, to make it easier to read between cycles
 
-while True:
+while True: # Repeats the perception check until the command prompt is closed
     partyPerceptionCheck()

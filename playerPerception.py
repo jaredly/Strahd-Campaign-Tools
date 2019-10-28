@@ -27,7 +27,7 @@ class character:
             self.percRoll = iRoll('1d20') + self.modifier
         
     def perceptionDCcheck(self, perceptionDC):
-        if self.percRoll >= partyPerceptionCheck(perceptionDC):
+        if self.percRoll >= perceptionDC:
             playerPerceptionTrigger += 1
             print(charName + "perceived something!")
 
